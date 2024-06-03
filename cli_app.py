@@ -1,15 +1,12 @@
 import argparse
 import psycopg2
-from psycopg2 import sql
 
-# Database connection parameters
 DB_NAME = "keebs"
 DB_USER = "postgres"
 DB_PASSWORD = "sat"
 DB_HOST = "localhost"
 DB_PORT = "5432"
 
-# Establish a connection to PostgreSQL
 def create_connection():
     conn = psycopg2.connect(
         dbname=DB_NAME,
@@ -103,11 +100,11 @@ def main():
     parser_country.add_argument("country", type=str, help="Manufacturer country. Available countries: China, Japan, Germany, South Korea, USA")
 
     parser_vintage = subparsers.add_parser("search_vintage")
-    parser_vintage.add_argument("key_arrangement", type=str, help="Key layout. Available layouts: ANSI, ISO, ERGO, JIS, HHKB, STAGGERED, ORTHOLINEAR")
+    parser_vintage.add_argument("key_layout", type=str, help="Key layout. Available layouts: ANSI, ISO, ERGO, JIS, HHKB, STAGGERED, ORTHOLINEAR")
     parser_vintage.add_argument("creation_year", type=int, help="Creation year")
 
     parser_case_formfactor = subparsers.add_parser("search_case_formfactor")
-    parser_case_formfactor.add_argument("formfactor", type=str, help="Case form factor. Available form factors: UNIBODY, SPLIT, MONOSPLIT")
+    parser_case_formfactor.add_argument("formfactor", type=str, help="Case formfactor. Available formfactors: UNIBODY, SPLIT, MONOSPLIT")
 
     parser_open_source = subparsers.add_parser("search_open_source")
     parser_open_source.add_argument("isOpenSource", type=bool, help="Is open source? True or False")
@@ -127,8 +124,8 @@ def main():
             print(result)
 
     elif args.command == "search_vintage":
-        results = search_vintage(args.key_arrangement, args.creation_year)
-        print("Vintage keyboards with arrangement {} and manufacturer creation year <= {}:".format(args.key_arrangement, args.creation_year))
+        results = search_vintage(args.key_layout, args.creation_year)
+        print("Vintage keyboards with layout {} and manufacturer creation year <= {}:".format(args.key_layout, args.creation_year))
         for result in results:
             print(result)
 

@@ -1,14 +1,11 @@
 import psycopg2
-from psycopg2 import sql
 
-# Database connection parameters
 DB_NAME = "postgres"
 DB_USER = "postgres"
 DB_PASSWORD = "sat"
 DB_HOST = "localhost"
 DB_PORT = "5432"
 
-# Establish a connection to PostgreSQL
 def create_connection(dbname, user, password, host, port):
     conn = psycopg2.connect(
         dbname=dbname,
@@ -20,7 +17,6 @@ def create_connection(dbname, user, password, host, port):
     conn.autocommit = True
     return conn
 
-# Create the keebs database
 def create_database():
     conn = create_connection(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     cursor = conn.cursor()
@@ -29,7 +25,6 @@ def create_database():
     cursor.close()
     conn.close()
 
-# Create tables within the keebs database
 def create_tables():
     conn = create_connection("keebs", DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     cursor = conn.cursor()
@@ -78,7 +73,6 @@ def create_tables():
     cursor.close()
     conn.close()
 
-# Main function to create the database and tables
 def main():
     create_database()
     create_tables()
